@@ -8,15 +8,20 @@
 </head>
 <body>
     <main class="container">
-        <a href="/upload" class="action-btn upload-link">Process a Recording →</a>
+        <div id="auth-controls"></div>
+
         <h1>Automated Meeting Briefing Agent 🚀</h1>
-        <p>Never walk into a meeting unprepared again. Select a meeting from your calendar below to generate an AI-powered briefing.</p>
         
-        <div id="meetings-container">
+        <div id="login-section">
+            <p>Please connect your Google Calendar to begin.</p>
+            <a href="/login" class="action-btn">Login with Google</a>
+        </div>
+
+        <div id="app-content" style="display: none;">
+            <a href="/upload" class="action-btn upload-link">Process a Recording →</a>
             <h2>Your Upcoming Meetings</h2>
             <div id="meetings-loader" class="loader"></div>
-            <ul id="meetings-list">
-                </ul>
+            <ul id="meetings-list"></ul>
         </div>
     </main>
     <script src="{{ url_for('static', filename='script.js') }}"></script>
