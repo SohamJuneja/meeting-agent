@@ -99,7 +99,7 @@ def process_recording():
         file.save(filepath)
 
         print("Loading Whisper model and transcribing...")
-        model = whisper.load_model("base")
+        model = whisper.load_model("tiny")
         result = model.transcribe(filepath, fp16=False)
         transcript = result["text"]
         print("Transcription complete.")
