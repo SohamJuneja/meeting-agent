@@ -56,7 +56,7 @@ def oauth2callback():
     state = session['state']
     flow = InstalledAppFlow.from_client_secrets_file(
         'credentials.json',
-        scopes=['https.googleapis.com/auth/calendar.readonly'],
+        scopes=['https://googleapis.com/auth/calendar.readonly'],
         state=state
     )
     flow.redirect_uri = url_for('oauth2callback', _external=True)
