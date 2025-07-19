@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Process Meeting Recording</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <main class="container">
+        <a href="/" class="back-link">← Back to Meetings</a>
+        <h1>Process Meeting Recording 🎙️</h1>
+        <p>Upload an audio file (MP3, WAV, M4A) of a recorded meeting. The agent will transcribe it, generate an AI summary, and prepare an email with the key takeaways.</p>
+        
+        <form id="upload-form" action="{{ url_for('process_recording') }}" method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="audio-file">Audio File</label>
+                <input type="file" id="audio-file" name="audio_file" accept=".mp3,.wav,.m4a,.mgeg" required>
+            </div>
+            <div class="form-group">
+                <label for="recipients">Email Recipients (comma-separated)</label>
+                <input type="email" id="recipients" name="recipients" placeholder="person1@example.com, person2@example.com" multiple required>
+            </div>
+            <button type="submit" class="action-btn">Generate & Email Summary</button>
+        </form>
+
+    </main>
+</body>
+</html>

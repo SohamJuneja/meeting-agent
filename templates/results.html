@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Summary Complete</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <main class="container">
+        <a href="/" class="back-link">← Back to Dashboard</a>
+        <h1>Summary Generated & Sent! ✅</h1>
+        <p>Your meeting recording has been transcribed and summarized. The following summary has been emailed to the recipients.</p>
+        
+        <div class="report-content">
+            {{ summary | safe }}
+        </div>
+    </main>
+</body>
+</html>

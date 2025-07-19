@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generating Briefing...</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <main class="briefing-container">
+        <a href="/" class="back-link">← Back to All Meetings</a>
+        
+        <div class="briefing-header">
+            <h1>{{ meeting.summary }}</h1>
+            <span>Generating your AI-powered briefing...</span>
+        </div>
+
+        <div id="progress-log" class="progress-log">
+            </div>
+        
+        <div id="briefing-content" class="briefing-content" style="display: none;">
+            </div>
+
+    </main>
+    <script src="{{ url_for('static', filename='briefing.js') }}"></script>
+</body>
+</html>

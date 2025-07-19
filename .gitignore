@@ -1,0 +1,11 @@
+# Secret Files
+.env
+token.json
+credentials.json
+*.json
+
+# Python Virtual Environment
+venv/
+
+# Audio Uploads Folder
+uploads/

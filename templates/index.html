@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meeting Briefing Agent</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <main class="container">
+        <a href="/upload" class="action-btn upload-link">Process a Recording →</a>
+        <h1>Automated Meeting Briefing Agent 🚀</h1>
+        <p>Never walk into a meeting unprepared again. Select a meeting from your calendar below to generate an AI-powered briefing.</p>
+        
+        <div id="meetings-container">
+            <h2>Your Upcoming Meetings</h2>
+            <div id="meetings-loader" class="loader"></div>
+            <ul id="meetings-list">
+                </ul>
+        </div>
+    </main>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
