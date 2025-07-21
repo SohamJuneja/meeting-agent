@@ -225,4 +225,4 @@ def send_summary_email(recipients, summary):
         print(f"Failed to send email: {e}")
 
 if __name__ == '__main__':
-    app.run(debug=True, port=5001, ssl_context='adhoc')
+    app.run(debug=True, port=5001)
