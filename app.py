@@ -224,5 +224,6 @@ def send_summary_email(recipients, summary):
     except Exception as e:
         print(f"Failed to send email: {e}")
 
+# Change the LAST LINE of your app.py to this:
 if __name__ == '__main__':
     app.run(debug=True, port=5001)
