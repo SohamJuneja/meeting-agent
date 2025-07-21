@@ -1,158 +1,153 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+    --bg-primary: #111827; /* Dark background */
+    --bg-secondary: #1F2937; /* Lighter dark for elements */
+    --border-color: #374151;
+    --text-primary: #F9FAFB; /* Light text */
+    --text-secondary: #9CA3AF; /* Muted text */
+    --accent-color: #3B82F6; /* Blue accent */
+    --accent-hover: #2563EB;
+    --danger-color: #EF4444;
+    --danger-hover: #DC2626;
+    --success-color: #22C55E;
+}
 
 body {
     font-family: 'Inter', sans-serif;
-    background-color: #f7f8fa; /* Lighter background */
-    color: #1a202c;
-    display: flex;
-    justify-content: center;
-    padding: 50px 20px;
-    min-height: 100vh;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
     margin: 0;
+    padding: 50px 20px;
     box-sizing: border-box;
 }
-.container, .briefing-container {
-    background: #ffffff;
+
+main.container {
+    background: var(--bg-secondary);
     padding: 40px;
     border-radius: 16px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.07);
-    border: 1px solid #e2e8f0;
+    border: 1px solid var(--border-color);
     max-width: 800px;
     width: 100%;
+    margin: 0 auto;
     text-align: center;
+    position: relative;
 }
+
+#auth-controls {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+
 h1 {
     font-weight: 700;
-    color: #1a202c;
+    font-size: 2.25em;
+    color: var(--text-primary);
     margin-top: 0;
+    margin-bottom: 10px;
 }
+
+h2 {
+    color: var(--text-secondary);
+    font-weight: 500;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 15px;
+    margin-top: 40px;
+}
+
 p {
-    color: #4a5568;
+    color: var(--text-secondary);
     line-height: 1.6;
     margin-bottom: 30px;
 }
+
 .action-btn {
-    background: #3182ce; /* A deeper blue */
+    background: var(--accent-color);
     color: white;
     text-decoration: none;
     padding: 12px 24px;
     font-size: 15px;
-    font-weight: 500;
+    font-weight: 600;
     border-radius: 8px;
     cursor: pointer;
     transition: all 0.2s ease-in-out;
+    border: none;
+    font-family: 'Inter', sans-serif;
 }
 .action-btn:hover {
-    background-color: #2b6cb0;
+    background-color: var(--accent-hover);
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
 }
+
+.logout-btn {
+    background-color: transparent;
+    border: 1px solid var(--border-color);
+    padding: 8px 16px;
+}
+.logout-btn:hover {
+    background-color: var(--border-color);
+    box-shadow: none;
+    transform: none;
+}
+
+.upload-link {
+    float: right;
+    margin-top: -10px;
+}
+
 .loader {
-    border: 4px solid #e2e8f0;
-    border-top: 4px solid #3182ce;
+    border: 4px solid var(--border-color);
+    border-top: 4px solid var(--accent-color);
     border-radius: 50%;
     width: 40px;
     height: 40px;
     animation: spin 1s linear infinite;
     margin: 30px auto;
 }
+
 @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
 }
+
 #meetings-list {
     list-style: none;
     padding: 0;
     margin-top: 20px;
 }
+
 .meeting-item {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    background-color: var(--bg-primary);
     padding: 20px;
-    border: 1px solid #e2e8f0;
+    border: 1px solid var(--border-color);
     border-radius: 12px;
     margin-bottom: 15px;
     text-align: left;
-    transition: box-shadow 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
 }
 .meeting-item:hover {
-    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    border-color: var(--accent-color);
+    transform: translateY(-2px);
 }
+
 .meeting-details strong {
     font-size: 1.1em;
-    color: #2d3748;
+    color: var(--text-primary);
 }
+
 .meeting-details span {
     display: block;
     font-size: 0.9em;
-    color: #718096;
+    color: var(--text-secondary);
     margin-top: 4px;
 }
 
-/* Styles for the new Briefing Page */
-.briefing-container {
-    text-align: left;
-}
-.back-link {
-    display: inline-block;
-    margin-bottom: 30px;
-    color: #3182ce;
-    text-decoration: none;
-    font-weight: 500;
-}
-.briefing-header {
-    border-bottom: 1px solid #e2e8f0;
-    padding-bottom: 20px;
-    margin-bottom: 20px;
-}
-.briefing-header h1 {
-    margin-bottom: 5px;
-}
-.briefing-header span {
-    color: #718096;
-}
-.briefing-content h3 {
-    margin-top: 30px;
-    margin-bottom: 10px;
-    border-bottom: 2px solid #3182ce;
-    padding-bottom: 5px;
-    display: inline-block;
-}
-.briefing-content li {
-    margin-bottom: 8px;
-    padding-left: 1em;
-    text-indent: -1em;
-}
-.error-box {
-    background-color: #fff5f5;
-    border: 1px solid #e53e3e;
-    color: #c53030;
-    padding: 20px;
-    border-radius: 8px;
-}
-/* Add these styles to the bottom of style.css */
-.progress-log {
-    background-color: #1a202c;
-    color: #a0aec0;
-    font-family: 'Courier New', Courier, monospace;
-    font-size: 14px;
-    padding: 20px;
-    border-radius: 8px;
-    margin-top: 20px;
-    height: 200px;
-    overflow-y: auto;
-    border: 1px solid #2d3748;
-}
-.progress-log p {
-    margin: 0 0 8px 0;
-    color: #a0aec0; /* Ensure p inside log has the right color */
-}
-/* Add these styles for the upload page */
-.upload-link {
-    float: right;
-    margin-bottom: 20px;
-}
+/* Upload Page Styles */
 .form-group {
     margin-bottom: 20px;
     text-align: left;
@@ -161,11 +156,14 @@ p {
     display: block;
     margin-bottom: 8px;
     font-weight: 500;
+    color: var(--text-secondary);
 }
 .form-group input {
     width: 100%;
     padding: 12px;
-    border: 1px solid #cbd5e0;
+    border: 1px solid var(--border-color);
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
     border-radius: 8px;
     font-size: 16px;
     box-sizing: border-box;
@@ -173,4 +171,63 @@ p {
 #upload-form button {
     width: 100%;
     padding: 15px;
+}
+
+/* Briefing/Results Page Styles */
+.briefing-container {
+    text-align: left;
+}
+.back-link {
+    display: inline-block;
+    margin-bottom: 30px;
+    color: var(--accent-color);
+    text-decoration: none;
+    font-weight: 500;
+}
+.briefing-header, .scan-header {
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+}
+.briefing-header h1, .scan-header h1 {
+    margin-bottom: 5px;
+}
+.briefing-header span, .scan-header p {
+    color: var(--text-secondary);
+}
+.progress-log {
+    background-color: #000;
+    color: #00FF41; /* Green terminal text */
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 14px;
+    padding: 20px;
+    border-radius: 8px;
+    margin-top: 20px;
+    min-height: 200px;
+    overflow-y: auto;
+}
+.report-content, .briefing-content {
+    margin-top: 20px;
+    line-height: 1.7;
+    color: #D1D5DB; /* Slightly muted for readability */
+}
+.report-content h3, .briefing-content h3 {
+    margin-top: 30px;
+    margin-bottom: 10px;
+    border-bottom: 2px solid var(--accent-color);
+    padding-bottom: 5px;
+    display: inline-block;
+    color: var(--text-primary);
+}
+.report-content li, .briefing-content li {
+    margin-bottom: 8px;
+    padding-left: 1em;
+    text-indent: -1em;
+}
+.error-box {
+    background-color: rgba(239, 68, 68, 0.1);
+    border: 1px solid var(--danger-color);
+    color: var(--danger-color);
+    padding: 20px;
+    border-radius: 8px;
 }

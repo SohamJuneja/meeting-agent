@@ -38,11 +38,15 @@ document.addEventListener('DOMContentLoaded', () => {
         briefingContent.style.display = 'block';
     });
 
-    eventSource.onerror = function() {
-        const errorEntry = document.createElement('p');
-        errorEntry.style.color = 'red';
-        errorEntry.textContent = '> Connection to server lost. Please try again.';
-        progressLog.appendChild(errorEntry);
-        eventSource.close();
-    };
+    // Replace the existing eventSource.onerror function in briefing.js
+
+eventSource.onerror = function(event) {
+    // Check if the connection is really closed, if so, stop trying.
+    if (event.target.readyState === EventSource.CLOSED) {
+        console.log('EventSource closed by server.');
+    } else {
+        // Otherwise, it might be a temporary network issue, so just log it.
+        console.log('EventSource error, but will remain open:', event);
+    }
+};
 });

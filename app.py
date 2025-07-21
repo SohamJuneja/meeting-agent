@@ -51,12 +51,21 @@ def login():
     session['state'] = state
     return redirect(authorization_url)
 
+# Replace the existing oauth2callback function in app.py
+
+# Replace the existing oauth2callback function in app.py
+
 @app.route('/oauth2callback')
 def oauth2callback():
+    # --- FIX: Check if state exists before trying to access it ---
+    if 'state' not in session:
+        return redirect(url_for('home'))
+    # -----------------------------------------------------------
+    
     state = session['state']
     flow = InstalledAppFlow.from_client_secrets_file(
         'credentials.json',
-        scopes=['https://googleapis.com/auth/calendar.readonly'],
+        scopes=['https://www.googleapis.com/auth/calendar.readonly'],
         state=state
     )
     flow.redirect_uri = url_for('oauth2callback', _external=True)
@@ -65,7 +74,6 @@ def oauth2callback():
     flow.fetch_token(authorization_response=authorization_response)
     
     credentials = flow.credentials
-    # Store credentials in the session
     session['credentials'] = {
         'token': credentials.token,
         'refresh_token': credentials.refresh_token,
@@ -122,39 +130,56 @@ def get_meetings_endpoint():
     ).execute()
     return jsonify(events_result.get("items", []))
 
+# Replace the existing stream_briefing function in app.py
+
 @app.route('/stream-briefing/<meeting_id>')
 def stream_briefing(meeting_id):
-    if 'credentials' not in session: return Response("data: STATUS: Error - Not logged in.\n\ndata: DONE\n\n", mimetype='text/event-stream')
+    if 'credentials' not in session: 
+        return Response("data: STATUS: Error - Not logged in.\n\ndata: DONE\n\n", mimetype='text/event-stream')
     
-    def generate():
-        service = get_calendar_service_from_session()
+    # FIX: Get credentials from session here, inside the request context
+    user_credentials = credentials_from_session()
+
+    def generate(creds): # The generator now accepts credentials as an argument
+        if not creds:
+            yield "data: STATUS: Error - Invalid credentials.\n\n"
+            yield "data: DONE\n\n"
+            return
+
+        service = build("calendar", "v3", credentials=creds)
         meeting = service.events().get(calendarId='primary', eventId=meeting_id).execute()
         meeting_details = {
             "summary": meeting.get("summary", "No Title"),
             "attendees": [attendee['email'] for attendee in meeting.get('attendees', []) if 'resource' not in attendee]
         }
         yield f"data: STATUS: Found meeting: {meeting_details['summary']}\n\n"
-        # ... (rest of the generator logic is the same)
         time.sleep(1)
+
         research_data = None
         for update in research_company_and_news(meeting_details["attendees"]):
             yield f"data: {update}\n\n"
             time.sleep(1)
             if update.startswith("DATA:"): research_data = update[6:]
+        
         if not research_data:
             yield "data: DONE\n\n"
             return
+        
         website_content, news_snippets = research_data.split('|||')
         briefing_text = None
         for update in get_briefing_from_ai(meeting_details, website_content, news_snippets):
             yield f"data: {update}\n\n"
             time.sleep(1)
             if update.startswith("DATA:"): briefing_text = update[6:]
+        
         if briefing_text:
-            yield f"event: final_briefing\ndata: {briefing_text.replace('\n', '|||')}\n\n"
+            formatted_briefing = briefing_text.replace('\n', '|||')
+            yield f"event: final_briefing\ndata: {formatted_briefing}\n\n"
+        
         yield "data: DONE\n\n"
-    return Response(generate(), mimetype='text/event-stream')
 
+    # Pass the credentials we grabbed earlier into the generator
+    return Response(generate(user_credentials), mimetype='text/event-stream')
 
 # --- Routes for POST-MEETING Audio Processing ---
 @app.route('/process-recording', methods=['POST'])
