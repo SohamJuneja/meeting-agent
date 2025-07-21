@@ -1,31 +1,28 @@
-# 🚀 Automated Meeting Briefing Agent
+# 🚀 The Complete Meeting Agent
 
-An autonomous AI agent that acts as a personal executive assistant, ensuring you're perfectly prepared for every meeting.
+An autonomous AI assistant that handles the full meeting lifecycle, from pre-meeting preparation to post-meeting summaries and follow-ups.
 
 ## The Problem
-Professionals are often in back-to-back meetings and lack the time to prepare. They walk in "cold," not remembering the context of the last conversation or the roles of the people they're meeting. This leads to inefficient meetings and missed opportunities.
+Professionals are often unprepared for meetings, and after the meeting, key decisions and action items are often forgotten. This leads to inefficient work and missed opportunities.
 
 ## The Solution
-This agent connects to your Google Calendar and displays your upcoming meetings. With a single click, it:
-1.  **Identifies** the meeting attendees and their company.
-2.  **Performs "Deep Dive" Research** by scraping the company website and searching Google News for recent articles.
-3.  **Synthesizes the Data** using the IO Intelligence API to generate a concise, structured briefing.
-4.  **Streams Progress Live** to the user, showing its work in real-time before presenting the final summary.
+This agent is a full-stack application that acts as a true meeting co-pilot:
+
+1.  **Pre-Meeting Briefings (Preparation):** The agent connects to a user's Google Calendar and displays upcoming meetings. Before a meeting, it generates an AI-powered briefing by researching the attendees' company website and recent news, ensuring the user is always prepared.
+
+2.  **Post-Meeting Summaries (Follow-up):** After a meeting, a user can upload an audio recording. The agent uses the Whisper model to transcribe the conversation, then leverages the **IO Intelligence API** to generate a concise summary of key decisions and action items, which it automatically emails to the specified recipients.
 
 ## How it Uses IO Intelligence
-The core intelligence of this agent is powered by the **IO Intelligence Models API**. It uses the powerful `meta-llama/Llama-3.3-70B-Instruct` model to transform raw, unstructured data (website text, news links) into a professional, actionable briefing. This demonstrates a high-value, real-world use case for large language models in a practical, agentic workflow.
+The core intelligence of this agent is powered by the **IO Intelligence Models API**. It uses the `meta-llama/Llama-3.3-70B-Instruct` model for two critical tasks:
+* Synthesizing pre-meeting research into a strategic briefing.
+* Distilling a long meeting transcript into a concise, actionable summary.
+
+This demonstrates a powerful, end-to-end use case for AI in a professional workflow.
 
 ## Tech Stack
-- **Backend:** Python, Flask
-- **Frontend:** HTML, CSS, Vanilla JavaScript
-- **Core AI:** IO Intelligence API
-- **Data Sources:** Google Calendar API, Google Search
-- **Web Scraping:** Requests, BeautifulSoup
-
-## How to Run It
-1.  Set up a Python virtual environment and run `pip install -r requirements.txt`.
-2.  Enable the Google Calendar API in the Google Cloud Console and download your `credentials.json`.
-3.  Get your `IO_API_KEY` from your IO Intelligence account.
-4.  Create a `.env` file with your `IO_API_KEY`.
-5.  Run the Flask server: `python app.py`
-6.  Open your browser to `http://127.0.0.1:5001`.
+-   **Backend:** Python, Flask
+-   **Frontend:** HTML, CSS, JavaScript
+-   **Core AI:** IO Intelligence API
+-   **Transcription:** OpenAI Whisper
+-   **Data Sources:** Google Calendar API, Google Search
+-   **Email:** smtplib
